@@ -21,6 +21,7 @@ import com.etwinkle.solutions.hardwaremanagement.fragments.DashboardFragment;
 import com.etwinkle.solutions.hardwaremanagement.fragments.EngineerFragment;
 import com.etwinkle.solutions.hardwaremanagement.fragments.InCompleteFragment;
 import com.etwinkle.solutions.hardwaremanagement.fragments.ProfileFragment;
+import com.etwinkle.solutions.hardwaremanagement.fragments.SummaryFragment;
 import com.etwinkle.solutions.hardwaremanagement.models.UserObject;
 import com.etwinkle.solutions.hardwaremanagement.utils.CustomApplication;
 
@@ -176,12 +177,14 @@ public class EngineerActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return new EngineerFragment();
+                    return new SummaryFragment();
                 case 1:
-                    return new InCompleteFragment();
+                    return new EngineerFragment();
                 case 2:
-                    return new CompleteFragment();
+                    return new InCompleteFragment();
                 case 3:
+                    return new CompleteFragment();
+                case 4:
                     return new ProfileFragment();
                 default:
                     return new DashboardFragment();
@@ -193,7 +196,7 @@ public class EngineerActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 5;
         }
     }
 }

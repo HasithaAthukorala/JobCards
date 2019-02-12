@@ -58,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="Lorem Ipsum"
+                android:visibility="gone"
                 android:layout_gravity="center"
                 android:textColor="@color/colorLight"
                 android:textSize="@dimen/_12sdp"/>
@@ -69,6 +70,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="Lorem Ipsum"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:textColor="@color/colorLight"
                 android:textSize="@dimen/_12sdp"/>
 
