@@ -8,8 +8,9 @@ public class PendingJobs {
     private String faultName;
     private String faultCategoryName;
     private String date;
+    private String jobIID;
 
-    public PendingJobs(String jobId, String description, String faultImage, String departmentName, String faultName, String faultCategoryName, String date) {
+    public PendingJobs(String jobId, String description, String faultImage, String departmentName, String faultName, String faultCategoryName, String date, String jobIID) {
         this.jobId = jobId;
         this.description = description;
         this.faultImage = faultImage;
@@ -17,6 +18,15 @@ public class PendingJobs {
         this.faultName = faultName;
         this.faultCategoryName = faultCategoryName;
         this.date = date;
+        this.jobIID = jobIID;
+    }
+
+    public String getJobIID() {
+        return jobIID;
+    }
+
+    public void setJobIID(String jobIID) {
+        this.jobIID = jobIID;
     }
 
     public String getJobId() {

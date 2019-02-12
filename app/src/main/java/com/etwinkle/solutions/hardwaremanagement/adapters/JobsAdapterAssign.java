@@ -2,12 +2,14 @@ package com.etwinkle.solutions.hardwaremanagement.adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.etwinkle.solutions.hardwaremanagement.R;
+import com.etwinkle.solutions.hardwaremanagement.activities.AssignActivity;
 import com.etwinkle.solutions.hardwaremanagement.models.PendingJobs;
 
 import java.util.List;
@@ -53,7 +55,9 @@ public class JobsAdapterAssign extends RecyclerView.Adapter<JobsViewHolderAssign
             holder.assign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(context,AssignActivity.class);
+                    intent.putExtra("jobid",productObject.getJobIID());
+                    context.startActivity(intent);
                 }
             });
         }

@@ -99,6 +99,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 loginUserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(loginUserIntent);
                 finish();
+            }else if (role.equals("Technician")){
+                Intent loginUserIntent = new Intent(LoginActivity.this, TechnicianActivity.class);
+                loginUserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(loginUserIntent);
+                finish();
+
             }
         }
 

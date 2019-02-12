@@ -41,6 +41,11 @@
             android:name=".activities.EngineerActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar2" />
+
+        <activity
+            android:name=".activities.TechnicianActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar2" />
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login"
@@ -65,6 +70,10 @@
         <activity android:name=".activities.InquiryActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.ImageUpload"
+            android:theme="@style/AppTheme.NoActionBar2"></activity>
+        <activity android:name=".activities.AssignActivity"
+            android:theme="@style/AppTheme.NoActionBar2"></activity>
+        <activity android:name=".activities.AcceptActivity"
             android:theme="@style/AppTheme.NoActionBar2"></activity>
     </application>
 

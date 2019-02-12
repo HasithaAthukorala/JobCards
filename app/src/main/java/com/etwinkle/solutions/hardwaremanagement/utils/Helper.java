@@ -35,13 +35,17 @@ public class Helper {
 
     public static final String PUBLIC_PATH = "https://localhost:5000";
 
-    public static final String PUBLIC_IMAGE_FOLDER = "https://www.etwinklesolutions.com/hwma.tk/mobile/";
+    public static final String PUBLIC_IMAGE_FOLDER = "https://card1.herokuapp.com/mobile/";
     public static final String PUBLIC_API_FOLDER = "https://card1.herokuapp.com/api/";
 
     public static final String PATH_TO_SERVER_LOGIN = PUBLIC_API_FOLDER + "login";
     public static final String PATH_TO_SERVER_SHOP_EQUIPMENTS = PUBLIC_API_FOLDER + "machines/check/serialNumber";
     public static final String PATH_TO_SERVER_GET_FAULTS = PUBLIC_API_FOLDER + "faults";
+    public static final String PATH_TO_SERVER_GET_ATTENDS = PUBLIC_API_FOLDER + "attends";
+    public static final String PATH_TO_SERVER_ASSIGN_TECH = PUBLIC_API_FOLDER + "assignTechnicians";
     public static final String PATH_TO_SERVER_GET_PENDING_JOBS = PUBLIC_API_FOLDER + "assignTechnicians/pending";
+    public static final String PATH_TO_SERVER_GET_TECH_JOBS = PUBLIC_API_FOLDER + "assignTechnicians/technician";
+    public static final String PATH_TO_SERVER_GET_TECH_ACCEPT = PUBLIC_API_FOLDER + "assignTechnicians/accept";
     public static final String PATH_TO_SERVER_GET_INCOMPLETE_JOBS = PUBLIC_API_FOLDER + "solves/incomplete";
     public static final String PATH_TO_SERVER_GET_COMPLETE_JOBS = PUBLIC_API_FOLDER + "solves/complete";
     public static final String PATH_TO_SERVER_UPLOAD_PATH = PUBLIC_API_FOLDER + "jobs";

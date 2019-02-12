@@ -31,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.etwinkle.solutions.hardwaremanagement.R;
 import com.etwinkle.solutions.hardwaremanagement.models.Assign;
 import com.etwinkle.solutions.hardwaremanagement.models.AssignJson;
+import com.etwinkle.solutions.hardwaremanagement.models.Success;
 import com.etwinkle.solutions.hardwaremanagement.network.GsonRequest;
 import com.etwinkle.solutions.hardwaremanagement.network.VolleySingleton;
 import com.etwinkle.solutions.hardwaremanagement.utils.Helper;
@@ -41,7 +42,9 @@ import com.koushikdutta.ion.Ion;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -60,6 +63,8 @@ public class AssignActivity extends Activity {
     private Spinner faults;
     private String filePath;
 
+    private String jobId;
+
     MediaPlayer mp=new MediaPlayer();
 
     /** Called when the activity is first created. */
@@ -67,12 +72,15 @@ public class AssignActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inquiry);
+        setContentView(R.layout.activity_assign);
 
         imgView = (ImageView) findViewById(R.id.ImageView);
         upload = (Button) findViewById(R.id.imguploadbtn);
         cancel = (Button) findViewById(R.id.imgcancelbtn);
         faults = (Spinner) findViewById(R.id.fault);
+
+        Intent intent = getIntent();
+        jobId = intent.getStringExtra("jobid");
 
         getDataFromRemoteServer();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -89,33 +97,8 @@ public class AssignActivity extends Activity {
         upload.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                if (bitmap == null) {
-                    Toast.makeText(getApplicationContext(),
-                            "Please select image", Toast.LENGTH_SHORT).show();
-                } else {
-//                    dialog = ProgressDialog.show(ImageUpload.this, "Uploading",
-//                            "Please wait...", true);
-                    Log.d("safaff",filePath);
-                    Ion.with(getApplicationContext())
-                            .load(Helper.PATH_TO_SERVER_UPLOAD_PATH)
-//                            .uploadProgressBar(uploadProgressBar)
-                            .setMultipartParameter("goop", "noop")
-                            .setMultipartFile("faultImage", "image/jpg", new File(filePath))
-                            .asJsonObject()
-                            .setCallback(new FutureCallback<JsonObject>() {
-                                @Override
-                                public void onCompleted(Exception e, JsonObject result) {
-                                    // do stuff with the result or error
-                                    try {
-                                        Log.d("safaf", result.toString());
-                                    }catch (NullPointerException s){}
-                                    try {
-                                        Log.d("safafaa", e.toString());
-                                    }catch (NullPointerException s){}
-                                }
-                            });
-//                    new ImageUploadTask().execute();
-                }
+                sendDataFromRemoteServer(jobId,shopEquipmentsList.get(faults.getSelectedItemPosition()).getId());
+                Log.d("sasaa",jobId+"   "+shopEquipmentsList.get(faults.getSelectedItemPosition()).getId());
             }
         });
 
@@ -358,7 +341,7 @@ public class AssignActivity extends Activity {
 
         GsonRequest<AssignJson> serverRequest = new GsonRequest<AssignJson>(
                 Request.Method.GET,
-                Helper.PATH_TO_SERVER_GET_FAULTS,
+                Helper.PATH_TO_SERVER_GET_ATTENDS,
                 AssignJson.class,
                 createRequestSuccessListener(),
                 createRequestErrorListener());
@@ -388,12 +371,11 @@ public class AssignActivity extends Activity {
                             JsonObject jsonObject = jsonElements.get(i).getAsJsonObject();
                             Assign fault = new Assign(removeCommas(jsonObject.get("technicianId").getAsJsonObject().get("_id").toString()),removeCommas(jsonObject.get("technicianId").getAsJsonObject().get("firstName").toString()),removeCommas(jsonObject.get("_id").toString()));
                             shopEquipmentsList.add(fault);
-                            names.add(removeCommas(jsonObject.get("faultName").toString()));
+                            names.add(removeCommas(jsonObject.get("technicianId").getAsJsonObject().get("firstName").toString()));
                         }
 
                         ArrayAdapter<String> colourArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_spinner_item, names);
                         colourArrayAdapter.setDropDownViewResource( R.layout.simple_spinner_dropdown_item );
-
                         try {
                             faults.setAdapter(colourArrayAdapter);
                             faults.setSelection(0);
@@ -441,6 +423,47 @@ public class AssignActivity extends Activity {
 
     public String removeCommas(String word){
         return  word.substring(1, word.length() - 1);
+    }
+
+    public void sendDataFromRemoteServer(String jobId,String eId) {
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jobId", jobId);
+        params.put("technicianId", eId);
+
+        GsonRequest<Success> serverRequest = new GsonRequest<Success>(
+                Request.Method.POST,
+                Helper.PATH_TO_SERVER_ASSIGN_TECH,
+                Success.class,
+                params,
+                createRequestSuccessListener2(),
+                createRequestErrorListener());
+
+        serverRequest.setRetryPolicy(new DefaultRetryPolicy(
+                Helper.MY_SOCKET_TIMEOUT_MS,
+                5,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        VolleySingleton.getInstance(AssignActivity.this).addToRequestQueue(serverRequest);
+    }
+
+    public Response.Listener<Success> createRequestSuccessListener2() {
+        return new Response.Listener<Success>() {
+            @Override
+            public void onResponse(Success response) {
+//                hideProgressDialog();
+                try {
+                    if(response.getSuccess().equals("true")){
+                        finish();
+                    }
+
+                } catch (Exception e) {
+//                    showProgress(false);
+                    Helper.displayErrorMessage(getApplicationContext(), "Invalid shop ID", "error");
+                    e.printStackTrace();
+                }
+            }
+        };
     }
 
 }

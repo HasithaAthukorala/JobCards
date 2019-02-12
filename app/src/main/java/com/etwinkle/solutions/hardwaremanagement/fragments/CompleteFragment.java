@@ -86,7 +86,7 @@ public class CompleteFragment extends Fragment {
                                 PendingJobs pendingJobs = new PendingJobs(removeCommas(jsonObject.get("jobId")), removeCommas(jsonObject.get("description")),
                                         removeCommas(jsonObject.get("faultImage")), removeCommas(jsonObject.get("departmentName")),
                                         removeCommas(jsonObject.get("faultName")),
-                                        removeCommas(jsonObject.get("faultCategoryName")), removeCommas(jsonObject.get("date")));
+                                        removeCommas(jsonObject.get("faultCategoryName")), removeCommas(jsonObject.get("date")),removeCommas(jsonObject.get("_id")));
                                 pendingJobsList.add(pendingJobs);
 
 //                            Fault fault = new Fault(jsonObject.get("_id").toString(),jsonObject.get("faultName").toString());
