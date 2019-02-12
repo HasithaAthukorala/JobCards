@@ -49,9 +49,8 @@ public class JobsAdapterAccept extends RecyclerView.Adapter<JobsViewHolderAccept
         final AcceptJob productObject = categoryObject.get(position);
         if(productObject != null){
 //            final int id = productObject.getId();
-            holder.jobName.setText(productObject.get_id());
-            holder.catName.setText(productObject.getJobID());
-            holder.description.setText(productObject.getDescription());
+            holder.jobName.setText(productObject.getFaultName());
+            holder.catName.setText(productObject.getDepartment());
             Log.d("saaaaa",productObject.getAccept());
             if(productObject.getAccept().equals("ru")){
                 holder.assign.setVisibility(View.GONE);
@@ -59,6 +58,7 @@ public class JobsAdapterAccept extends RecyclerView.Adapter<JobsViewHolderAccept
             }else {
                 holder.assign.setVisibility(View.VISIBLE);
             }
+            holder.description.setText(productObject.getDescription());
 //            holder.jobDate.setText(productObject.getDate());
 //            holder.department.setText(productObject.getDepartmentName());
             holder.assign.setOnClickListener(new View.OnClickListener() {

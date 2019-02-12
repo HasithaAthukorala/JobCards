@@ -46,11 +46,11 @@ public class ProfileFragment extends Fragment {
             CircleImageView circleImageView = (CircleImageView) view.findViewById(R.id.profile_image);
             Glide.with(view.getContext()).load(getResources().getDrawable(R.drawable.dummy)).into(circleImageView);
             TextView fullnames = (TextView)view.findViewById(R.id.profile_name);
-            fullnames.setText(user.getRepID());
+            fullnames.setText(user.getRepName());
             TextView address = (TextView)view.findViewById(R.id.rep_id);
             address.setText(user.getEmployeeTypeName());
             TextView phone = (TextView)view.findViewById(R.id.phone);
-            phone.setText(user.getEmployeeId());
+//            phone.setText(user.getEmployeeId());
             TextView email = (TextView)view.findViewById(R.id.email);
             email.setText(user.getEmail());
             Button signOut = (Button) view.findViewById(R.id.sign_out);

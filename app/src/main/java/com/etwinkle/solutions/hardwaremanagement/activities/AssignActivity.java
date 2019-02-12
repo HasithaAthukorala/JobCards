@@ -82,7 +82,7 @@ public class AssignActivity extends Activity {
         Intent intent = getIntent();
         jobId = intent.getStringExtra("jobid");
 
-        getDataFromRemoteServer();
+        getDataFromRemoteServer(jobId);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
 
         }else {
@@ -337,11 +337,11 @@ public class AssignActivity extends Activity {
 
     }
 
-    public void getDataFromRemoteServer() {
+    public void getDataFromRemoteServer(String jobID) {
 
         GsonRequest<AssignJson> serverRequest = new GsonRequest<AssignJson>(
                 Request.Method.GET,
-                Helper.PATH_TO_SERVER_GET_ATTENDS,
+                Helper.PATH_TO_SERVER_GET_ATTENDS+jobID,
                 AssignJson.class,
                 createRequestSuccessListener(),
                 createRequestErrorListener());
@@ -369,7 +369,7 @@ public class AssignActivity extends Activity {
                         JsonArray jsonElements = response.getDetails();
                         for(int i = 0; i < jsonElements.size(); i++) {
                             JsonObject jsonObject = jsonElements.get(i).getAsJsonObject();
-                            Assign fault = new Assign(removeCommas(jsonObject.get("technicianId").getAsJsonObject().get("_id").toString()),removeCommas(jsonObject.get("technicianId").getAsJsonObject().get("firstName").toString()),removeCommas(jsonObject.get("_id").toString()));
+                            Assign fault = new Assign(removeCommas(jsonObject.get("technicianId").getAsJsonObject().get("_id").toString()),removeCommas(jsonObject.get("technicianId").getAsJsonObject().get("firstName").toString()),jsonObject.get("technicianId").getAsJsonObject().get("_id").toString());
                             shopEquipmentsList.add(fault);
                             names.add(removeCommas(jsonObject.get("technicianId").getAsJsonObject().get("firstName").toString()));
                         }

@@ -23,7 +23,6 @@
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_100sdp"
                 android:adjustViewBounds="true"
-                android:visibility="gone"
                 android:src="@drawable/camera"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/app_name"/>

@@ -44,7 +44,7 @@ public class TechnicianActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_technician);
 
 //        try {
 //            ProviderInstaller.installIfNeeded(getApplicationContext());
@@ -177,6 +177,8 @@ public class TechnicianActivity extends AppCompatActivity {
                 case 0:
                     return new TechnicianFragment();
                 case 1:
+                    return new DashboardFragment();
+                case 2:
                     return new ProfileFragment();
                 default:
                     return new DashboardFragment();
@@ -188,7 +190,7 @@ public class TechnicianActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 3;
         }
     }
 }

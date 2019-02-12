@@ -89,22 +89,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         UserObject mUser = ((CustomApplication) getApplication()).getLoginUser();
         if (mUser != null) {
             String role = mUser.getEmployeeTypeName();
-            if(role.equals("Machine Operator")) {
-                Intent loginUserIntent = new Intent(LoginActivity.this, MainActivity.class);
-                loginUserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(loginUserIntent);
-                finish();
-            }else if (role.equals("Executive Engineer")){
-                Intent loginUserIntent = new Intent(LoginActivity.this, EngineerActivity.class);
-                loginUserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(loginUserIntent);
-                finish();
-            }else if (role.equals("Technician")){
-                Intent loginUserIntent = new Intent(LoginActivity.this, TechnicianActivity.class);
-                loginUserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(loginUserIntent);
-                finish();
-
+            if(role != null) {
+                if (role.equals("Machine Operator")) {
+                    Intent loginUserIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    loginUserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(loginUserIntent);
+                    finish();
+                } else if (role.equals("Executive Engineer")) {
+                    Intent loginUserIntent = new Intent(LoginActivity.this, EngineerActivity.class);
+                    loginUserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(loginUserIntent);
+                    finish();
+                } else if (role.equals("Technician")) {
+                    Intent loginUserIntent = new Intent(LoginActivity.this, TechnicianActivity.class);
+                    loginUserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(loginUserIntent);
+                    finish();
+                }
             }
         }
 
@@ -224,6 +225,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            ((CustomApplication)getApplication()).getShared().setUserData("");
             showProgress(true);
             loginToRemoteServer(email, password);
 //            mAuthTask = new UserLoginTask(email, password);

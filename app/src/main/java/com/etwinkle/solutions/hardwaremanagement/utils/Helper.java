@@ -41,7 +41,7 @@ public class Helper {
     public static final String PATH_TO_SERVER_LOGIN = PUBLIC_API_FOLDER + "login";
     public static final String PATH_TO_SERVER_SHOP_EQUIPMENTS = PUBLIC_API_FOLDER + "machines/check/serialNumber";
     public static final String PATH_TO_SERVER_GET_FAULTS = PUBLIC_API_FOLDER + "faults";
-    public static final String PATH_TO_SERVER_GET_ATTENDS = PUBLIC_API_FOLDER + "attends";
+    public static final String PATH_TO_SERVER_GET_ATTENDS = PUBLIC_API_FOLDER + "jobFaults/availableTechnician/";
     public static final String PATH_TO_SERVER_ASSIGN_TECH = PUBLIC_API_FOLDER + "assignTechnicians";
     public static final String PATH_TO_SERVER_GET_PENDING_JOBS = PUBLIC_API_FOLDER + "assignTechnicians/pending";
     public static final String PATH_TO_SERVER_GET_TECH_JOBS = PUBLIC_API_FOLDER + "assignTechnicians/technician";

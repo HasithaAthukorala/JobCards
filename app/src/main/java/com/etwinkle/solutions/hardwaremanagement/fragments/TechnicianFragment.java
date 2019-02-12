@@ -43,6 +43,13 @@ public class TechnicianFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        UserObject user = ((CustomApplication)getActivity().getApplication()).getLoginUser();
+        getDataFromRemoteServer(user.getEmployeeId());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -62,7 +69,7 @@ public class TechnicianFragment extends Fragment {
                 Request.Method.GET,
                 Helper.PATH_TO_SERVER_GET_TECH_JOBS+"/"+id,
                 TechJson.class,
-                createRequestSuccessListener(),
+                createRequestSuccessListener(id),
                 createRequestErrorListener());
 
         serverRequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -73,7 +80,7 @@ public class TechnicianFragment extends Fragment {
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(serverRequest);
     }
 
-    public Response.Listener<TechJson> createRequestSuccessListener() {
+    public Response.Listener<TechJson> createRequestSuccessListener(final String id) {
         return new Response.Listener<TechJson>() {
             @Override
             public void onResponse(TechJson response) {
@@ -89,8 +96,9 @@ public class TechnicianFragment extends Fragment {
 //                                        removeCommas(jsonObject.get("faultImage")), removeCommas(jsonObject.get("departmentName")),
 //                                        removeCommas(jsonObject.get("faultName")),
 //                                        removeCommas(jsonObject.get("faultCategoryName")), removeCommas(jsonObject.get("date")),removeCommas(jsonObject.get("_id")));
-                                AcceptJob acceptJob = new AcceptJob(removeCommas(jsonObject.get("accept")), removeCommas(jsonObject.get("_id")),
-                                        removeCommas(jsonObject.get("technicianId")), removeCommas(jsonObject.get("jobId").getAsJsonObject().get("description")));
+                                AcceptJob acceptJob = new AcceptJob(removeCommas(jsonObject.get("solvedetails").getAsJsonObject().get("accept")), removeCommas(jsonObject.get("jobs").getAsJsonObject().get("jobId").getAsJsonObject().get("_id")),
+                                        id, removeCommas(jsonObject.get("jobs").getAsJsonObject().get("jobId").getAsJsonObject().get("description")),removeCommas(jsonObject.get("jobs").getAsJsonObject().get("jobId").getAsJsonObject().get("machineId").getAsJsonObject().get("departmentId").getAsJsonObject().get("departmentName")),
+                                        removeCommas(jsonObject.get("jobs").getAsJsonObject().get("faultId").getAsJsonObject().get("faultName")),removeCommas(jsonObject.get("jobs").getAsJsonObject().get("jobId").getAsJsonObject().get("machineId").getAsJsonObject().get("serialNumber")));
                                 pendingJobsList.add(acceptJob);
 
 //                            Fault fault = new Fault(jsonObject.get("_id").toString(),jsonObject.get("faultName").toString());
